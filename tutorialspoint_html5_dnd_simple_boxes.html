@@ -9,22 +9,37 @@
       </style>
       <script type="text/javascript">
          function dragStart(ev) {
+            // Allow the drag effect
             ev.dataTransfer.effectAllowed='move';
+
+            // Save the dragged element ID as the dataTransfer attribute
             ev.dataTransfer.setData("Text", ev.target.getAttribute('id'));
+
+            // Set the image of the element as it is being dragged
             ev.dataTransfer.setDragImage(ev.target,0,0);
+
             return true;
          }
          function dragEnter(ev) {
+            // alert("ENTER") // works, but does not allow the drop
             event.preventDefault();
             return true;
          }
          function dragOver(ev) {
+            // alert("OVER")  // infinite alert loop
             return false;
          }
          function dragDrop(ev) {
+
+            // Get the ID of element being dragged based on the "Text" key
             var src = ev.dataTransfer.getData("Text");
+
+            // Get the element and append it to the DOM of the target
             ev.target.appendChild(document.getElementById(src));
+
+            // Stop, because we're done
             ev.stopPropagation();
+
             return false;
          }
       </script>
