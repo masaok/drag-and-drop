@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <style>
+  table {
+    font-family: arial, sans-serif;
+    border-collapse: collapse;
+    width: 100%;
+  }
+
+  td, th {
+    border: 1px solid #dddddd;
+    text-align: left;
+    padding: 8px;
+  }
+
+  tr:nth-child(even) {
+    background-color: #dddddd;
+  }
+  </style>
+  <script type="text/javascript">
+    function dragStart(ev) {
+        // Allow the drag effect
+        ev.dataTransfer.effectAllowed='move';
+
+        // Save the dragged element ID as the dataTransfer attribute
+        ev.dataTransfer.setData("Text", ev.target.getAttribute('id'));
+
+        // Set the image of the element as it is being dragged
+        ev.dataTransfer.setDragImage(ev.target,0,0);
+
+        return true;
+    }
+    function dragEnter(ev) {
+        // alert("ENTER") // works, but does not allow the drop
+        event.preventDefault();
+        return true;
+    }
+    function dragOver(ev) {
+        // alert("OVER")  // infinite alert loop
+        return false;
+    }
+    function dragDrop(ev) {
+
+        // Get the ID of element being dragged based on the "Text" key
+        var src = ev.dataTransfer.getData("Text");
+
+        // Get the element and append it to the DOM of the target
+        ev.target.appendChild(document.getElementById(src));
+
+        // Stop, because we're done
+        ev.stopPropagation();
+
+        return false;
+    }
+  </script>
+</head>
+<body>
+
+<h2>HTML Table</h2>
+
+<table>
+  <tr>
+    <th>Company</th>
+    <th>Contact</th>
+    <th>Country</th>
+  </tr>
+  <tr 
+    id="row1" 
+    draggable="true" 
+    ondragstart="return dragStart(event)"
+  >
+    <td>Alfreds Futterkiste</td>
+    <td>Maria Anders</td>
+    <td>Germany</td>
+  </tr>
+  <tr 
+    id="row2" 
+    ondragenter="return dragEnter(event)" 
+    ondrop="return dragDrop(event)" 
+    ondragover="return dragOver(event)"
+  >
+    <td>Centro comercial Moctezuma</td>
+    <td>Francisco Chang</td>
+    <td>Mexico</td>
+  </tr>
+  <tr>
+    <td>Ernst Handel</td>
+    <td>Roland Mendel</td>
+    <td>Austria</td>
+  </tr>
+  <tr>
+    <td>Island Trading</td>
+    <td>Helen Bennett</td>
+    <td>UK</td>
+  </tr>
+  <tr>
+    <td>Laughing Bacchus Winecellars</td>
+    <td>Yoshi Tannamuri</td>
+    <td>Canada</td>
+  </tr>
+  <tr>
+    <td>Magazzini Alimentari Riuniti</td>
+    <td>Giovanni Rovelli</td>
+    <td>Italy</td>
+  </tr>
+</table>
+
+</body>
+</html>
