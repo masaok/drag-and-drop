@@ -19,6 +19,18 @@
   }
   </style>
   <script type="text/javascript">
+
+    // Note: Cloned copy of element1 will be returned to get a new reference back
+    function exchangeElements(element1, element2) {
+        var clonedElement1 = element1.cloneNode(true);
+        var clonedElement2 = element2.cloneNode(true);
+
+        element2.parentNode.replaceChild(clonedElement1, element2);
+        element1.parentNode.replaceChild(clonedElement2, element1);
+
+        return clonedElement1;
+    }
+
     function dragStart(ev) {
         // Allow the drag effect
         ev.dataTransfer.effectAllowed='move';
@@ -46,7 +58,10 @@
         var src = ev.dataTransfer.getData("Text");
 
         // Get the element and append it to the DOM of the target
-        ev.target.appendChild(document.getElementById(src));
+        // ev.target.appendChild(document.getElementById(src));
+
+        // We need to swap with the target cell's parent, not the cell itself
+        exchangeElements(ev.target.parentNode, document.getElementById(src))
 
         // Stop, because we're done
         ev.stopPropagation();
@@ -57,54 +72,87 @@
 </head>
 <body>
 
-<h2>HTML Table</h2>
+  <h2>HTML Table</h2>
 
-<table>
-  <tr>
-    <th>Company</th>
-    <th>Contact</th>
-    <th>Country</th>
-  </tr>
-  <tr 
-    id="row1" 
-    draggable="true" 
-    ondragstart="return dragStart(event)"
-  >
-    <td>Alfreds Futterkiste</td>
-    <td>Maria Anders</td>
-    <td>Germany</td>
-  </tr>
-  <tr 
-    id="row2" 
-    ondragenter="return dragEnter(event)" 
-    ondrop="return dragDrop(event)" 
-    ondragover="return dragOver(event)"
-  >
-    <td>Centro comercial Moctezuma</td>
-    <td>Francisco Chang</td>
-    <td>Mexico</td>
-  </tr>
-  <tr>
-    <td>Ernst Handel</td>
-    <td>Roland Mendel</td>
-    <td>Austria</td>
-  </tr>
-  <tr>
-    <td>Island Trading</td>
-    <td>Helen Bennett</td>
-    <td>UK</td>
-  </tr>
-  <tr>
-    <td>Laughing Bacchus Winecellars</td>
-    <td>Yoshi Tannamuri</td>
-    <td>Canada</td>
-  </tr>
-  <tr>
-    <td>Magazzini Alimentari Riuniti</td>
-    <td>Giovanni Rovelli</td>
-    <td>Italy</td>
-  </tr>
-</table>
+  <table>
+    <tr>
+      <th>Company</th>
+      <th>Contact</th>
+      <th>Country</th>
+    </tr>
+    <tr 
+      id="row1" 
+      draggable="true" 
+      ondragstart="return dragStart(event)"
+      ondragenter="return dragEnter(event)" 
+      ondrop="return dragDrop(event)" 
+      ondragover="return dragOver(event)"
+    >
+      <td>Alfreds Futterkiste</td>
+      <td>Maria Anders</td>
+      <td>Germany</td>
+    </tr>
+    <tr 
+      id="row2" 
+      draggable="true" 
+      ondragstart="return dragStart(event)"
+      ondragenter="return dragEnter(event)" 
+      ondrop="return dragDrop(event)" 
+      ondragover="return dragOver(event)"
+    >
+      <td>Centro comercial Moctezuma</td>
+      <td>Francisco Chang</td>
+      <td>Mexico</td>
+    </tr>
+    <tr
+      id="row3" 
+      draggable="true" 
+      ondragstart="return dragStart(event)"
+      ondragenter="return dragEnter(event)" 
+      ondrop="return dragDrop(event)" 
+      ondragover="return dragOver(event)"
+    >
+      <td>Ernst Handel</td>
+      <td>Roland Mendel</td>
+      <td>Austria</td>
+    </tr>
+    <tr
+      id="row4" 
+      draggable="true" 
+      ondragstart="return dragStart(event)"
+      ondragenter="return dragEnter(event)" 
+      ondrop="return dragDrop(event)" 
+      ondragover="return dragOver(event)"
+    >
+      <td>Island Trading</td>
+      <td>Helen Bennett</td>
+      <td>UK</td>
+    </tr>
+    <tr
+      id="row5" 
+      draggable="true" 
+      ondragstart="return dragStart(event)"
+      ondragenter="return dragEnter(event)" 
+      ondrop="return dragDrop(event)" 
+      ondragover="return dragOver(event)"
+    >
+      <td>Laughing Bacchus Winecellars</td>
+      <td>Yoshi Tannamuri</td>
+      <td>Canada</td>
+    </tr>
+    <tr
+      id="row6" 
+      draggable="true" 
+      ondragstart="return dragStart(event)"
+      ondragenter="return dragEnter(event)" 
+      ondrop="return dragDrop(event)" 
+      ondragover="return dragOver(event)"
+    >
+      <td>Magazzini Alimentari Riuniti</td>
+      <td>Giovanni Rovelli</td>
+      <td>Italy</td>
+    </tr>
+  </table>
 
 </body>
 </html>
