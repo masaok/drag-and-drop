@@ -25,26 +25,43 @@
         var clonedElement1 = element1.cloneNode(true);
         var clonedElement2 = element2.cloneNode(true);
 
-        element2.parentNode.replaceChild(clonedElement1, element2);
-        element1.parentNode.replaceChild(clonedElement2, element1);
+        if (element2.parentNode !== null) { // prevent warning when dragging onto self
+          element2.parentNode.replaceChild(clonedElement1, element2);
+        }
+
+        if (element1.parentNode !== null) { // prevent warning when dragging onto self
+          element1.parentNode.replaceChild(clonedElement2, element1);
+        }
 
         return clonedElement1;
     }
 
-    function dragStart(ev) {
-        // Allow the drag effect
-        ev.dataTransfer.effectAllowed='move';
+    function dragStart(ev) { // occurs when the user starts to drag an element
 
-        // Save the dragged element ID as the dataTransfer attribute
-        ev.dataTransfer.setData("Text", ev.target.getAttribute('id'));
+      // this.style.opacity = '0.4';  // this / ev.target is the source node.
+      // this.style.opacity = '0.4';
+      // dragSrcEl = this
+      ev.target.style.color = 'blue';
 
-        // Set the image of the element as it is being dragged
-        ev.dataTransfer.setDragImage(ev.target,0,0);
+      // Allow the drag effect
+      ev.dataTransfer.effectAllowed='move';
 
-        return true;
+      // Save the dragged element ID as the dataTransfer attribute
+      ev.dataTransfer.setData("Text", ev.target.getAttribute('id'));
+
+      // Set the image of the element as it is being dragged
+      ev.dataTransfer.setDragImage(ev.target,0,0);
+
+      return true;
     }
+    // function dragEnd(ev) { // occurs when the user has finished dragging the element
+    //   ev.target.style.color = 'black';
+    //   return false;
+    // }
+
     function dragEnter(ev) {
         // alert("ENTER") // works, but does not allow the drop
+        ev.target.parentNode.style.opacity = '0.2';
         event.preventDefault();
         return true;
     }
@@ -52,16 +69,28 @@
         // alert("OVER")  // infinite alert loop
         return false;
     }
+    function dragLeave(ev) {
+        // alert("OVER")  // infinite alert loop
+        ev.target.parentNode.style.opacity = '1.0';
+        return false;
+    }
     function dragDrop(ev) {
 
         // Get the ID of element being dragged based on the "Text" key
         var src = ev.dataTransfer.getData("Text");
 
+        // ev.target.style.opacity = '1.0'
+        var dest = document.getElementById(src)
+        dest.style.color = 'black' // reset the dragged element color after it gets dropped
+
+        // Reset the displaced element (that got dropped on)
+        ev.target.parentNode.style.opacity = '1.0';
+
         // Get the element and append it to the DOM of the target
         // ev.target.appendChild(document.getElementById(src));
 
         // We need to swap with the target cell's parent, not the cell itself
-        exchangeElements(ev.target.parentNode, document.getElementById(src))
+        exchangeElements(ev.target.parentNode, dest)
 
         // Stop, because we're done
         ev.stopPropagation();
@@ -85,8 +114,9 @@
       draggable="true" 
       ondragstart="return dragStart(event)"
       ondragenter="return dragEnter(event)" 
-      ondrop="return dragDrop(event)" 
       ondragover="return dragOver(event)"
+      ondragleave="return dragLeave(event)"
+      ondrop="return dragDrop(event)" 
     >
       <td>Alfreds Futterkiste</td>
       <td>Maria Anders</td>
@@ -97,8 +127,9 @@
       draggable="true" 
       ondragstart="return dragStart(event)"
       ondragenter="return dragEnter(event)" 
-      ondrop="return dragDrop(event)" 
       ondragover="return dragOver(event)"
+      ondragleave="return dragLeave(event)"
+      ondrop="return dragDrop(event)" 
     >
       <td>Centro comercial Moctezuma</td>
       <td>Francisco Chang</td>
@@ -109,8 +140,9 @@
       draggable="true" 
       ondragstart="return dragStart(event)"
       ondragenter="return dragEnter(event)" 
-      ondrop="return dragDrop(event)" 
       ondragover="return dragOver(event)"
+      ondragleave="return dragLeave(event)"
+      ondrop="return dragDrop(event)" 
     >
       <td>Ernst Handel</td>
       <td>Roland Mendel</td>
@@ -121,8 +153,9 @@
       draggable="true" 
       ondragstart="return dragStart(event)"
       ondragenter="return dragEnter(event)" 
-      ondrop="return dragDrop(event)" 
       ondragover="return dragOver(event)"
+      ondragleave="return dragLeave(event)"
+      ondrop="return dragDrop(event)" 
     >
       <td>Island Trading</td>
       <td>Helen Bennett</td>
@@ -133,8 +166,9 @@
       draggable="true" 
       ondragstart="return dragStart(event)"
       ondragenter="return dragEnter(event)" 
-      ondrop="return dragDrop(event)" 
       ondragover="return dragOver(event)"
+      ondragleave="return dragLeave(event)"
+      ondrop="return dragDrop(event)" 
     >
       <td>Laughing Bacchus Winecellars</td>
       <td>Yoshi Tannamuri</td>
@@ -145,8 +179,9 @@
       draggable="true" 
       ondragstart="return dragStart(event)"
       ondragenter="return dragEnter(event)" 
-      ondrop="return dragDrop(event)" 
       ondragover="return dragOver(event)"
+      ondragleave="return dragLeave(event)"
+      ondrop="return dragDrop(event)" 
     >
       <td>Magazzini Alimentari Riuniti</td>
       <td>Giovanni Rovelli</td>
