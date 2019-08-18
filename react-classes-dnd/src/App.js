@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
-import logo from './logo.svg';
+// import logo from './logo.svg';
 import './App.css';
-import Card from './Card';
+// import Card from './Card';
 
 export default class App extends Component {
 
@@ -44,6 +44,7 @@ export default class App extends Component {
 
   // https://medium.com/bother7-blog/drag-and-drop-functionality-in-react-eaa4161a041d
   dragStart = event => {
+    console.log("DRAG START ... ")
     console.log('react SyntheticEvent ==> ', event);
     console.log('nativeEvent ==> ', event.nativeEvent); //<- gets native JS event
 
@@ -74,6 +75,7 @@ export default class App extends Component {
   }
 
   dragEnter = event => {
+    console.log("DRAG ENTER")
     // const ev = event.nativeEvent
     const ev = event
 
@@ -82,23 +84,52 @@ export default class App extends Component {
   }
 
   dragOver = event => {
-    return false;
+    // console.log("DRAG OVER")
+    // return false;
+    // let event = e as Event;
+
+    // https://stackoverflow.com/questions/50230048/react-ondrop-is-not-firing/50230145
+    event.stopPropagation();
+    event.preventDefault();
   }
 
   dragLeave = event => {
+    console.log("DRAG LEAVE")
     // const ev = event.nativeEvent
     const ev = event
     ev.target.parentNode.style.opacity = '1.0';
     return false;
   }
 
-  dragDrop = event => {
-    // const ev = event.nativeEvent
-    const ev = event
+  allowDrop(ev) {
+    ev.preventDefault();
+  }
 
+  // TODO: Get the ID of the element being dropped upon (the destination row)
+  // https://stackoverflow.com/questions/38512668/how-to-get-the-target-id-of-the-ondrop-event
+  dragDrop = (event) => {
+    event.preventDefault()
+
+    console.log("DRAG DROP ...")
+    console.log("EVENT TARGET ID")
+    console.log(event.target.id)
+
+    // console.log("TARGET")
+    // console.log(target)
+
+    const ev = event.nativeEvent
+    // const ev = event
+    console.log("EV TARGET ID")
+    console.log(ev.target.id)
+    console.log(event.target.id)
+
+    const attr2 = ev.target.getAttribute('id')
+    console.log(attr2)
 
     // Get the ID of element being dragged based on the "Text" key
     var src = ev.dataTransfer.getData("Text");
+    console.log("SRC:")
+    console.log(src)
 
     if (ev.target.id) {
       this.props.swap(src, ev.target.id)
@@ -128,9 +159,9 @@ export default class App extends Component {
             </tr>
 
             {/* https://daveceddia.com/usestate-hook-examples/ */}
-            {data.map(row => (
+            {data.map((row, index) => (
               <tr
-                id={row[0]}
+                id={index}
                 key={row[0]}
                 draggable="true"
                 onDragStart={this.dragStart}
