@@ -1,3 +1,4 @@
+<!-- https://www.tutorialspoint.com/html5/html5_drag_drop -->
 <html>
    <head>
       <style type="text/css">
@@ -22,7 +23,7 @@
          }
          function dragEnter(ev) {
             // alert("ENTER") // works, but does not allow the drop
-            event.preventDefault();
+            ev.preventDefault();
             return true;
          }
          function dragOver(ev) {
