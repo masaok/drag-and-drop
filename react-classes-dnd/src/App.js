@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 // import logo from './logo.svg';
 import './App.css';
-// import Card from './Card';
+import Card from './Card';
 
 export default class App extends Component {
 
@@ -177,6 +177,11 @@ export default class App extends Component {
             ))}
           </tbody>
         </table>
+
+        {/* Separate test */}
+        {/* https://medium.com/bother7-blog/drag-and-drop-functionality-in-react-eaa4161a041d */}
+        <Card title="TITLE" details="DETAILS" index="1" />
+        <Card title="TITLE" details="DETAILS" index="2" />
       </div>
     );
   }

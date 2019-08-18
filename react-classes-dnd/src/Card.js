@@ -1,3 +1,4 @@
+// https://medium.com/bother7-blog/drag-and-drop-functionality-in-react-eaa4161a041d
 import React, { Component } from 'react';
 class Card extends Component {
   state = {
@@ -36,11 +37,28 @@ class Card extends Component {
           onDragStart={this.dragStart} 
           onDragOver={(event) => event.preventDefault()} 
           onDragEnd={this.dragEnd}
-        ><h3>{this.props.title}</h3><p>{this.props.details}</p></div>)
+        >
+          <h3>{this.props.title}</h3>
+          <p>{this.props.details}</p>
+          TARGET BOX NULL
+        </div>)
     }
     else {
       const style = {backgroundColor: 'red'}
-      return (<div style={style} className={this.cssGrid[this.state.index]} id={this.props.title} draggable="true" onDrop={this.drop} onDragStart={this.dragStart} onDragOver={(event) => event.preventDefault()} onDragEnd={this.dragEnd} ></div>)
+      return (
+        <div 
+          style={style} 
+          className={this.cssGrid[this.state.index]} 
+          id={this.props.title} 
+          draggable="true" 
+          onDrop={this.drop} 
+          onDragStart={this.dragStart} 
+          onDragOver={(event) => event.preventDefault()} 
+          onDragEnd={this.dragEnd}
+        >
+          TARGET BOX NOT NULL
+        </div>
+      )
     }
   }
 }
