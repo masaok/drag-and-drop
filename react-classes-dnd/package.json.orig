@@ -1,19 +1,20 @@
 {
-  "name": "bother7-table-test",
+  "name": "react-classes-dnd",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "heroku": "^7.27.1",
     "react": "^16.9.0",
     "react-dom": "^16.9.0",
-    "react-scripts": "3.1.1",
-    "semantic-ui-react": "^0.87.3"
+    "react-scripts": "3.1.1"
   },
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
-    "test": "react-scripts test --env=jsdom",
+    "test": "react-scripts test",
     "eject": "react-scripts eject"
+  },
+  "eslintConfig": {
+    "extends": "react-app"
   },
   "browserslist": {
     "production": [

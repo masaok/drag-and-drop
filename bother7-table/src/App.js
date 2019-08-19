@@ -2,8 +2,9 @@ import React, { Component } from 'react';
 // import ReactDOM from 'react-dom';
 // import logo from './logo.svg';
 import './App.css';
-import CardContainer from './components/CardContainer'
+import Table from './components/Table'
 
+const REACT_VERSION = React.version;
 
 class App extends Component {
   constructor(props){
@@ -40,8 +41,8 @@ class App extends Component {
   }
 
   render() {
-    return ( <div><h1>Bother7 Table Test</h1>
-      <CardContainer swap={this.swap} info={this.state.info} /> </div>
+    return ( <div><h1>Bother7 Table Test {REACT_VERSION}</h1>
+      <Table swap={this.swap} info={this.state.info} /> </div>
     );
   }
 }
