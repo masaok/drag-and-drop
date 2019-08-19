@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import ReactDOM from 'react-dom';
-import logo from './logo.svg';
+// import ReactDOM from 'react-dom';
+// import logo from './logo.svg';
 import './App.css';
 import CardContainer from './components/CardContainer'
 
@@ -35,9 +35,13 @@ class App extends Component {
     this.setState({info: samplearray})
   }
 
+  componentDidMount() {
+    document.title = "Bother7 Table Test"
+  }
+
   render() {
-    return ( <div><h1>Drag and Drop Containers Over Each Other to Swap Places</h1>
-        <CardContainer swap={this.swap} info={this.state.info} /> </div>
+    return ( <div><h1>Bother7 Table Test</h1>
+      <CardContainer swap={this.swap} info={this.state.info} /> </div>
     );
   }
 }
