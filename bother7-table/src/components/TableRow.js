@@ -31,45 +31,65 @@ class TableRow extends Component {
     }
   }
 
-  render(){
-    if (this.state.targetbox === null) {
-      console.log("TARGET BOX NULL")
-      return (
-        <React.Fragment>
-          <tr 
-            className={this.cssGrid[this.state.index]} 
-            id={this.props.title} 
-            draggable="true" 
-            onDrop={this.drop} 
-            onDragStart={this.dragStart} 
-            onDragOver={(event) => event.preventDefault()} 
-            onDragEnd={this.dragEnd}
-          >
-            <td>{this.props.title}</td><td>{this.props.details}</td>
-          </tr>
-        </React.Fragment>
-      )
-    }
-    else {
-      console.log("TARGET BOX NOT NULL")
-      const style = {backgroundColor: 'red'}
-      return (
-        <React.Fragment>
-          <tr 
-            style={style} 
-            className={this.cssGrid[this.state.index]} 
-            id={this.props.title} 
-            draggable="true" 
-            onDrop={this.drop} 
-            onDragStart={this.dragStart} 
-            onDragOver={(event) => event.preventDefault()} 
-            onDragEnd={this.dragEnd}
-          ></tr>
-        </React.Fragment>
-      )
-    }
-  }
+  // render(){
+  //   if (this.state.targetbox === null) {
+  //     console.log("TARGET BOX NULL")
+  //     return (
+  //       <React.Fragment>
+  //         <tr 
+  //           className="one"
+  //           id={this.props.title} 
+  //           draggable="true" 
+  //           onDrop={this.drop} 
+  //           onDragStart={this.dragStart} 
+  //           onDragOver={(event) => event.preventDefault()} 
+  //           onDragEnd={this.dragEnd}
+  //         >
+  //           <td>{this.props.title}</td><td>{this.props.details}</td>
+  //         </tr>
+  //       </React.Fragment>
+  //     )
+  //   }
+  //   else {
+  //     console.log("TARGET BOX NOT NULL")
+  //     const style = {backgroundColor: 'red'}
+  //     return (
+  //       <React.Fragment>
+  //         <tr 
+  //           style={style} 
+  //           className="one"
+  //           id={this.props.title} 
+  //           draggable="true" 
+  //           onDrop={this.drop} 
+  //           onDragStart={this.dragStart} 
+  //           onDragOver={(event) => event.preventDefault()} 
+  //           onDragEnd={this.dragEnd}
+  //         ></tr>
+  //       </React.Fragment>
+  //     )
+  //   }
+  // }
 
+  render(){
+    const style = {backgroundColor: 'red'}
+    return (
+      <React.Fragment>
+        <tr 
+          className="one"
+          style={this.state.targetbox === null ? {} : style}
+          id={this.props.title} 
+          draggable="true" 
+          onDrop={this.drop} 
+          onDragStart={this.dragStart} 
+          onDragOver={(event) => event.preventDefault()} 
+          onDragEnd={this.dragEnd}
+        >
+          <td className='td'>{this.props.title}</td>
+          <td className='td'>{this.props.details}</td>
+        </tr>
+      </React.Fragment>
+    )
+  }
 }
 
 export default TableRow

@@ -12,7 +12,8 @@ class App extends Component {
     this.swap = this.swap.bind(this)
   }
   state = {
-    info: [{title:"1. potato", details: "blah blah blah"},
+    info: [
+      {title:"1. potato", details: "blah blah blah"},
       {title:"2. tomato", details: "red and juicy"},
       {title:"3. taco", details: "burrito burrito"},
       {title:"4. oregano", details: "spicy"},
