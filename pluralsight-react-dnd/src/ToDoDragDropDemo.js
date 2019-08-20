@@ -38,27 +38,38 @@ export default class ToDoDragDropDemo extends Component {
   }
 
   render() {
-    var tasks = {
-      inProgress: [],
-      Done: []
-    }
+    // var tasks = {
+    //   inProgress: [],
+    //   Done: []
+    // }
 
-    this.state.tasks.forEach ((task) => {
-      tasks[task.type].push(
-        <div key={task.id} 
+    let tasks = []
+
+    this.state.tasks.forEach((task) => {
+      tasks.push(
+        <tr key={task.id} 
           onDragStart = {(event) => this.onDragStart(event, task.taskName)}
+          onDragOver={(event)=>this.onDragOver(event)}
+          onDrop={(event)=>{this.onDrop(event, task.type)}}
           draggable
           className="draggable"
           style = {{backgroundColor: task.bgcolor}}>
-          {task.taskName}
-        </div>
+          <td>{task.taskName}</td>
+        </tr>
       );
     });
     
     return (
       <div className="drag-container">
         <h2 className="head">To Do List Drag & Drop</h2>
-        <div className="inProgress"
+
+        <table>
+          <tbody>
+            {tasks}
+          </tbody>
+        </table>
+
+        {/* <div className="inProgress"
           onDragOver={(event)=>this.onDragOver(event)}
           onDrop={(event)=>{this.onDrop(event, "inProgress")}}
         >
@@ -71,7 +82,7 @@ export default class ToDoDragDropDemo extends Component {
         >
           <span className="group-header">Done</span>
           {tasks.Done}
-        </div>          
+        </div>           */}
       </div>
     );
 
