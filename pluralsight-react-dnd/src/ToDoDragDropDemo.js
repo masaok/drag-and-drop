@@ -5,10 +5,10 @@ export default class ToDoDragDropDemo extends Component {
 
   state = {
     tasks: [
-        {id: "1", taskName:"Read book",type:"inProgress", backgroundColor: "red"},
-        {id: "2", taskName:"Pay bills", type:"inProgress", backgroundColor:"green"},
-        {id: "3", taskName:"Go to the gym", type:"Done", backgroundColor:"blue"},
-        {id: "4", taskName:"Play baseball", type:"Done", backgroundColor:"green"}
+      {id: "1", taskName:"Read book",type:"inProgress", backgroundColor: "red"},
+      {id: "2", taskName:"Pay bills", type:"inProgress", backgroundColor:"green"},
+      {id: "3", taskName:"Go to the gym", type:"Done", backgroundColor:"blue"},
+      {id: "4", taskName:"Play baseball", type:"Done", backgroundColor:"green"}
     ]
   }
 
@@ -18,23 +18,23 @@ export default class ToDoDragDropDemo extends Component {
   }
 
   onDragOver = (event) => {
-      event.preventDefault();
+    event.preventDefault();
   }
 
   onDrop = (event, cat) => {
-      let taskName = event.dataTransfer.getData("taskName");
+    let taskName = event.dataTransfer.getData("taskName");
 
-      let tasks = this.state.tasks.filter((task) => {
-          if (task.taskName === taskName) {
-              task.type = cat;
-          }
-          return task;
-      });
+    let tasks = this.state.tasks.filter((task) => {
+      if (task.taskName === taskName) {
+        task.type = cat;
+      }
+      return task;
+    });
 
-      this.setState({
-          ...this.state,
-          tasks
-      });
+    this.setState({
+      ...this.state,
+      tasks
+    });
   }
 
   render() {
