@@ -12,22 +12,26 @@ export default class ToDoDragDropDemo extends Component {
     ]
   }
 
-  onDragStart = (event, taskName) => {
-    console.log('dragstart on div: ', taskName);
-    event.dataTransfer.setData("taskName", taskName);
+  onDragStart = (event, index) => {
+    console.log('dragstart on div: ', index);
+    event.dataTransfer.setData("dragIndex", index);
   }
 
   onDragOver = (event) => {
     event.preventDefault();
   }
 
-  onDrop = (event, cat) => {
-    let taskName = event.dataTransfer.getData("taskName");
+  onDrop = (event, dropIndex) => {
+    console.log("ON DROP > dropIndex: " + dropIndex)
+    let dragIndex = event.dataTransfer.getData("dragIndex");
+    console.log("dragIndex: " + dragIndex)
 
     let tasks = this.state.tasks.filter((task) => {
-      if (task.taskName === taskName) {
-        task.type = cat;
-      }
+      // if (task.taskName === taskName) {
+      //   console.log("FILTER > task > match:")
+      //   console.log(task)
+      //   task.type = cat;
+      // }
       return task;
     });
 
@@ -45,12 +49,12 @@ export default class ToDoDragDropDemo extends Component {
 
     let tasks = []
 
-    this.state.tasks.forEach((task) => {
+    this.state.tasks.forEach((task, index) => {
       tasks.push(
         <tr key={task.id} 
-          onDragStart = {(event) => this.onDragStart(event, task.taskName)}
+          onDragStart = {(event) => this.onDragStart(event, index)}
           onDragOver={(event)=>this.onDragOver(event)}
-          onDrop={(event)=>{this.onDrop(event, task.type)}}
+          onDrop={(event)=>{this.onDrop(event, index)}}
           draggable
           className="draggable"
           style = {{backgroundColor: task.bgcolor}}>
