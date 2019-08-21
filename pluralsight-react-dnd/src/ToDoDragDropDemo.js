@@ -1,3 +1,5 @@
+// https://www.pluralsight.com/guides/implement-drag-drop-react-component
+
 import React, { Component } from 'react';
 import './App.css';
 
@@ -38,11 +40,6 @@ export default class ToDoDragDropDemo extends Component {
   }
 
   render() {
-    // var tasks = {
-    //   inProgress: [],
-    //   Done: []
-    // }
-
     let tasks = []
 
     this.state.tasks.forEach((task, index) => {
@@ -52,8 +49,9 @@ export default class ToDoDragDropDemo extends Component {
           onDragOver={(event)=>this.onDragOver(event)}
           onDrop={(event)=>{this.onDrop(event, index)}}
           draggable
-          className="draggable"
+          // className="draggable"
           style = {{backgroundColor: task.bgcolor}}>
+          <td>{task.id}</td>
           <td>{task.taskName}</td>
         </tr>
       );
@@ -61,28 +59,12 @@ export default class ToDoDragDropDemo extends Component {
     
     return (
       <div className="drag-container">
-        <h2 className="head">To Do List Drag & Drop</h2>
-
+        <h2 className="head">PluralSight Drag Drop Table Demo</h2>
         <table>
           <tbody>
             {tasks}
           </tbody>
         </table>
-
-        {/* <div className="inProgress"
-          onDragOver={(event)=>this.onDragOver(event)}
-          onDrop={(event)=>{this.onDrop(event, "inProgress")}}
-        >
-          <span className="group-header">In Progress</span>
-          {tasks.inProgress}
-        </div>
-        <div className="droppable"
-          onDragOver={(event)=>this.onDragOver(event)}
-          onDrop={(event)=>this.onDrop(event, "Done")}
-        >
-          <span className="group-header">Done</span>
-          {tasks.Done}
-        </div>           */}
       </div>
     );
 
