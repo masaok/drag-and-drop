@@ -26,17 +26,13 @@ export default class ToDoDragDropDemo extends Component {
     let dragIndex = event.dataTransfer.getData("dragIndex");
     console.log("dragIndex: " + dragIndex)
 
-    let tasks = this.state.tasks.filter((task) => {
-      // if (task.taskName === taskName) {
-      //   console.log("FILTER > task > match:")
-      //   console.log(task)
-      //   task.type = cat;
-      // }
-      return task;
-    });
+    let tasks = this.state.tasks
+    var temp = tasks[dropIndex]
+    tasks[dropIndex] = tasks[dragIndex]
+    tasks[dragIndex] = temp
 
     this.setState({
-      ...this.state,
+      // ...this.state,  // not necessary?
       tasks
     });
   }
