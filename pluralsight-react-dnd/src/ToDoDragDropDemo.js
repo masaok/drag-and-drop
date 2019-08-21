@@ -10,7 +10,7 @@ export default class ToDoDragDropDemo extends Component {
       {id: "1", taskName:"Read book",type:"inProgress", backgroundColor: "red"},
       {id: "2", taskName:"Pay bills", type:"inProgress", backgroundColor:"green"},
       {id: "3", taskName:"Go to the gym", type:"Done", backgroundColor:"blue"},
-      {id: "4", taskName:"Play baseball", type:"Done", backgroundColor:"green"}
+      {id: "4", taskName:"Play baseball", type:"Done", backgroundColor:"purple"}
     ]
   }
 
@@ -50,9 +50,10 @@ export default class ToDoDragDropDemo extends Component {
           onDrop={(event)=>{this.onDrop(event, index)}}
           draggable
           // className="draggable"
-          style = {{backgroundColor: task.bgcolor}}>
+          style = {{backgroundColor: task.backgroundColor}}>
           <td>{task.id}</td>
           <td>{task.taskName}</td>
+          <td>{task.type}</td>
         </tr>
       );
     });
