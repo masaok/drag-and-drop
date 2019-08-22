@@ -33,6 +33,8 @@ export default class ToDoDragDropDemo extends Component {
     // tasks.forEach(task => tempDebugString += task.taskName + ", ")
     // console.log("tasks: " + tempDebugString)
 
+    // console.log("tasks: " + JSON.stringify(tasks))
+
     let tempDraggedTask = tasks[dragIndex]
     console.log("tempDraggedTask: " + tempDraggedTask.taskName)
 
