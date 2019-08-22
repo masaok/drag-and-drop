@@ -3,15 +3,12 @@
   margin: 0 auto;
 }
 
-.drag-container {
-  text-align: center;
-}
-
 .head {
+  font-size: 80%;
   display: inline-block;
   margin: 0;
   padding: 0;
-  background-color: #CCCCCC;
+  /* background-color: #CCCCCC; */
   width:100%;
 }
 
@@ -45,29 +42,11 @@
   }
 }
 
-.droppable {
-  position: absolute;
-  width: 200px;
-  height: 200px;
-  right: 0;
-  top: 10;
-  background-color: #9E9E9E;
-  border-left: 2px dotted red;
+/* Basic table with rows style */
+table, th, td {
+  border: 1px solid black;
 }
 
-.draggable {
-  width: 100px;
-  height: 100px;
-  background-color: yellow;
-  margin: 10px auto;
-}
-
-.inProgress {
-  position: absolute;
-  width: 200px;
-  height: 200px;
-  left: 0;
-  top: 10;
-  background-color: #EEEEEE;
-  border-right: 2px dotted red;
-}
+/* .drag-container {
+  text-align: center;
+} */

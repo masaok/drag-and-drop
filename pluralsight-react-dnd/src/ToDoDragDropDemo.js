@@ -1,3 +1,5 @@
+// https://www.pluralsight.com/guides/implement-drag-drop-react-component
+
 import React, { Component } from 'react';
 import './App.css';
 
@@ -8,70 +10,62 @@ export default class ToDoDragDropDemo extends Component {
       {id: "1", taskName:"Read book",type:"inProgress", backgroundColor: "red"},
       {id: "2", taskName:"Pay bills", type:"inProgress", backgroundColor:"green"},
       {id: "3", taskName:"Go to the gym", type:"Done", backgroundColor:"blue"},
-      {id: "4", taskName:"Play baseball", type:"Done", backgroundColor:"green"}
+      {id: "4", taskName:"Play baseball", type:"Done", backgroundColor:"purple"}
     ]
   }
 
-  onDragStart = (event, taskName) => {
-    console.log('dragstart on div: ', taskName);
-    event.dataTransfer.setData("taskName", taskName);
+  onDragStart = (event, index) => {
+    console.log('dragstart on div: ', index);
+    event.dataTransfer.setData("dragIndex", index);
   }
 
   onDragOver = (event) => {
     event.preventDefault();
   }
 
-  onDrop = (event, cat) => {
-    let taskName = event.dataTransfer.getData("taskName");
+  onDrop = (event, dropIndex) => {
+    console.log("ON DROP > dropIndex: " + dropIndex)
+    let dragIndex = event.dataTransfer.getData("dragIndex");
+    console.log("dragIndex: " + dragIndex)
 
-    let tasks = this.state.tasks.filter((task) => {
-      if (task.taskName === taskName) {
-        task.type = cat;
-      }
-      return task;
-    });
+    let tasks = this.state.tasks
+    var temp = tasks[dropIndex]
+    tasks[dropIndex] = tasks[dragIndex]
+    tasks[dragIndex] = temp
 
     this.setState({
-      ...this.state,
+      // ...this.state,  // not necessary?
       tasks
     });
   }
 
   render() {
-    var tasks = {
-      inProgress: [],
-      Done: []
-    }
+    let tasks = []
 
-    this.state.tasks.forEach ((task) => {
-      tasks[task.type].push(
-        <div key={task.id} 
-          onDragStart = {(event) => this.onDragStart(event, task.taskName)}
+    this.state.tasks.forEach((task, index) => {
+      tasks.push(
+        <tr key={task.id}
+          onDragStart = {(event) => this.onDragStart(event, index)}
+          onDragOver={(event)=>this.onDragOver(event)}
+          onDrop={(event)=>{this.onDrop(event, index)}}
           draggable
-          className="draggable"
-          style = {{backgroundColor: task.bgcolor}}>
-          {task.taskName}
-        </div>
+          // className="draggable"
+          style = {{backgroundColor: task.backgroundColor}}>
+          <td>{task.id}</td>
+          <td>{task.taskName}</td>
+          <td>{task.type}</td>
+        </tr>
       );
     });
-    
+
     return (
       <div className="drag-container">
-        <h2 className="head">To Do List Drag & Drop</h2>
-        <div className="inProgress"
-          onDragOver={(event)=>this.onDragOver(event)}
-          onDrop={(event)=>{this.onDrop(event, "inProgress")}}
-        >
-          <span className="group-header">In Progress</span>
-          {tasks.inProgress}
-        </div>
-        <div className="droppable"
-          onDragOver={(event)=>this.onDragOver(event)}
-          onDrop={(event)=>this.onDrop(event, "Done")}
-        >
-          <span className="group-header">Done</span>
-          {tasks.Done}
-        </div>          
+        <h2 className="head">PluralSight Drag Drop Table Demo</h2>
+        <table>
+          <tbody>
+            {tasks}
+          </tbody>
+        </table>
       </div>
     );
 
