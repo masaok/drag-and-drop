@@ -29,12 +29,13 @@ export default class ToDoDragDropDemo extends Component {
     console.log("dragIndex: " + dragIndex)
 
     let tasks = this.state.tasks
-    var temp = tasks[dropIndex]
-    tasks[dropIndex] = tasks[dragIndex]
-    tasks[dragIndex] = temp
+    let tempDraggedTask = tasks[dragIndex]
+    console.log("tempDraggedTask: " + tempDraggedTask.taskName)
+
+    tasks.splice(dragIndex, 1)
+    tasks.splice(dropIndex, 0, tempDraggedTask)
 
     this.setState({
-      // ...this.state,  // not necessary?
       tasks
     });
   }
@@ -44,7 +45,7 @@ export default class ToDoDragDropDemo extends Component {
 
     this.state.tasks.forEach((task, index) => {
       tasks.push(
-        <tr key={task.id} 
+        <tr key={task.id}
           onDragStart = {(event) => this.onDragStart(event, index)}
           onDragOver={(event)=>this.onDragOver(event)}
           onDrop={(event)=>{this.onDrop(event, index)}}
@@ -57,7 +58,7 @@ export default class ToDoDragDropDemo extends Component {
         </tr>
       );
     });
-    
+
     return (
       <div className="drag-container">
         <h2 className="head">PluralSight Drag Drop Table Demo</h2>
