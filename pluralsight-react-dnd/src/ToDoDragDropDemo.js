@@ -29,29 +29,13 @@ export default class ToDoDragDropDemo extends Component {
     console.log("dragIndex: " + dragIndex)
 
     let tasks = this.state.tasks
-    // let tempDebugString = ""
-    // tasks.forEach(task => tempDebugString += task.taskName + ", ")
-    // console.log("tasks: " + tempDebugString)
-
-    // console.log("tasks: " + JSON.stringify(tasks))
-
     let tempDraggedTask = tasks[dragIndex]
     console.log("tempDraggedTask: " + tempDraggedTask.taskName)
 
     tasks.splice(dragIndex, 1)
-
-    // tempDebugString = ""
-    // tasks.forEach(task => tempDebugString += task.taskName + ", ")
-    // console.log("tasks is now " + tempDebugString)
-
     tasks.splice(dropIndex, 0, tempDraggedTask)
 
-    // tempDebugString = ""
-    // tasks.forEach(task => tempDebugString += task.taskName + ", ")
-    // console.log("tasks is now " + tempDebugString)
-
     this.setState({
-      // ...this.state,  // not necessary?
       tasks
     });
   }
