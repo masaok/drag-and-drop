@@ -3,6 +3,12 @@
 import React, { Component } from 'react';
 import './App.css';
 
+import Table from '@material-ui/core/Table'
+import TableBody from '@material-ui/core/TableBody'
+import TableCell from '@material-ui/core/TableCell'
+// import TableHead from '@material-ui/core/TableHead'
+import TableRow from '@material-ui/core/TableRow'
+
 export default class ToDoDragDropDemo extends Component {
 
   state = {
@@ -45,28 +51,27 @@ export default class ToDoDragDropDemo extends Component {
 
     this.state.tasks.forEach((task, index) => {
       tasks.push(
-        <tr key={task.id}
+        <TableRow key={task.id}
           onDragStart = {(event) => this.onDragStart(event, index)}
           onDragOver={(event)=>this.onDragOver(event)}
           onDrop={(event)=>{this.onDrop(event, index)}}
           draggable
-          // className="draggable"
           style = {{backgroundColor: task.backgroundColor}}>
-          <td>{task.id}</td>
-          <td>{task.taskName}</td>
-          <td>{task.type}</td>
-        </tr>
+          <TableCell>{task.id}</TableCell>
+          <TableCell>{task.taskName}</TableCell>
+          <TableCell>{task.type}</TableCell>
+        </TableRow>
       );
     });
 
     return (
       <div className="drag-container">
-        <h2 className="head">PluralSight Drag Drop Table Demo</h2>
-        <table>
-          <tbody>
+        <h2 className="head">PluralSight Drag Drop Table Demo with MUI</h2>
+        <Table>
+          <TableBody>
             {tasks}
-          </tbody>
-        </table>
+          </TableBody>
+        </Table>
       </div>
     );
 
