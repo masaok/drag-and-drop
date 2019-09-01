@@ -29,15 +29,14 @@ export default class ToDoDragDropDemo extends Component {
   onDragEnter = (event, index) => {
     console.log('ON DRAG ENTER index: ', index);
     event.preventDefault();
-  }
-
-  onDragOver = (event, index) => {
-    console.log('ON DRAG OVER index: ', index);
-    event.preventDefault();
-
     this.setState({
       dragOverIndex: index
     });
+  }
+
+  onDragOver = (event, index) => {
+    // console.log('ON DRAG OVER index: ', index);
+    event.preventDefault();
   }
 
   onDragLeave = (event, index) => {
