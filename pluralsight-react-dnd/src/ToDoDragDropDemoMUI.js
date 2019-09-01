@@ -17,7 +17,8 @@ export default class ToDoDragDropDemo extends Component {
       {id: "2", taskName:"Pay bills", type:"inProgress", backgroundColor:"green"},
       {id: "3", taskName:"Go to the gym", type:"Done", backgroundColor:"blue"},
       {id: "4", taskName:"Play baseball", type:"Done", backgroundColor:"purple"}
-    ]
+    ],
+    dragOverIndex: null,  // change the color of the row being dragged over
   }
 
   onDragStart = (event, index) => {
@@ -25,7 +26,22 @@ export default class ToDoDragDropDemo extends Component {
     event.dataTransfer.setData("dragIndex", index);
   }
 
-  onDragOver = (event) => {
+  onDragEnter = (event, index) => {
+    console.log('ON DRAG ENTER index: ', index);
+    event.preventDefault();
+  }
+
+  onDragOver = (event, index) => {
+    console.log('ON DRAG OVER index: ', index);
+    event.preventDefault();
+
+    this.setState({
+      dragOverIndex: index
+    });
+  }
+
+  onDragLeave = (event, index) => {
+    console.log('ON DRAG LEAVE index: ', index);
     event.preventDefault();
   }
 
@@ -42,21 +58,32 @@ export default class ToDoDragDropDemo extends Component {
     tasks.splice(dropIndex, 0, tempDraggedTask)
 
     this.setState({
-      tasks
+      tasks,
+      dragOverIndex: null  // reset the color after the row is dropped
     });
   }
 
   render() {
     let tasks = []
 
+    const { dragOverIndex } = this.state
+
     this.state.tasks.forEach((task, index) => {
       tasks.push(
         <TableRow key={task.id}
-          onDragStart = {(event) => this.onDragStart(event, index)}
-          onDragOver={(event)=>this.onDragOver(event)}
+          onDragStart={(event) => this.onDragStart(event, index)}
+          onDragEnter={(event)=>this.onDragEnter(event, index)}
+          onDragOver={(event)=>this.onDragOver(event, index)}
+          onDragLeave={(event)=>this.onDragLeave(event, index)}
           onDrop={(event)=>{this.onDrop(event, index)}}
           draggable
-          style = {{backgroundColor: task.backgroundColor}}>
+          style={ dragOverIndex === index ? {
+              backgroundColor: 'white'
+            } : {
+              backgroundColor: task.backgroundColor
+            }
+          }
+        >
           <TableCell>{task.id}</TableCell>
           <TableCell>{task.taskName}</TableCell>
           <TableCell>{task.type}</TableCell>
